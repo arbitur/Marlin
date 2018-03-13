@@ -956,40 +956,54 @@ void kill_screen(const char* lcd_msg) {
       #endif
     }
 
-    #if defined(USER_DESC_1) && defined(USER_GCODE_1)
-      void lcd_user_gcode_1() { _lcd_user_gcode(PSTR(USER_GCODE_1 _DONE_SCRIPT)); }
-    #endif
-    #if defined(USER_DESC_2) && defined(USER_GCODE_2)
-      void lcd_user_gcode_2() { _lcd_user_gcode(PSTR(USER_GCODE_2 _DONE_SCRIPT)); }
-    #endif
-    #if defined(USER_DESC_3) && defined(USER_GCODE_3)
-      void lcd_user_gcode_3() { _lcd_user_gcode(PSTR(USER_GCODE_3 _DONE_SCRIPT)); }
-    #endif
-    #if defined(USER_DESC_4) && defined(USER_GCODE_4)
-      void lcd_user_gcode_4() { _lcd_user_gcode(PSTR(USER_GCODE_4 _DONE_SCRIPT)); }
-    #endif
-    #if defined(USER_DESC_5) && defined(USER_GCODE_5)
-      void lcd_user_gcode_5() { _lcd_user_gcode(PSTR(USER_GCODE_5 _DONE_SCRIPT)); }
-    #endif
+    // #if defined(USER_DESC_1) && defined(USER_GCODE_1)
+    //   void lcd_user_gcode_1() { _lcd_user_gcode(PSTR(USER_GCODE_1 _DONE_SCRIPT)); }
+    // #endif
+    // #if defined(USER_DESC_2) && defined(USER_GCODE_2)
+    //   void lcd_user_gcode_2() { _lcd_user_gcode(PSTR(USER_GCODE_2 _DONE_SCRIPT)); }
+    // #endif
+    // #if defined(USER_DESC_3) && defined(USER_GCODE_3)
+    //   void lcd_user_gcode_3() { _lcd_user_gcode(PSTR(USER_GCODE_3 _DONE_SCRIPT)); }
+    // #endif
+    // #if defined(USER_DESC_4) && defined(USER_GCODE_4)
+    //   void lcd_user_gcode_4() { _lcd_user_gcode(PSTR(USER_GCODE_4 _DONE_SCRIPT)); }
+    // #endif
+    // #if defined(USER_DESC_5) && defined(USER_GCODE_5)
+    //   void lcd_user_gcode_5() { _lcd_user_gcode(PSTR(USER_GCODE_5 _DONE_SCRIPT)); }
+    // #endif
+	
 
     void _lcd_user_menu() {
       START_MENU();
       MENU_BACK(MSG_MAIN);
-      #if defined(USER_DESC_1) && defined(USER_GCODE_1)
-        MENU_ITEM(function, USER_DESC_1, lcd_user_gcode_1);
-      #endif
-      #if defined(USER_DESC_2) && defined(USER_GCODE_2)
-        MENU_ITEM(function, USER_DESC_2, lcd_user_gcode_2);
-      #endif
-      #if defined(USER_DESC_3) && defined(USER_GCODE_3)
-        MENU_ITEM(function, USER_DESC_3, lcd_user_gcode_3);
-      #endif
-      #if defined(USER_DESC_4) && defined(USER_GCODE_4)
-        MENU_ITEM(function, USER_DESC_4, lcd_user_gcode_4);
-      #endif
-      #if defined(USER_DESC_5) && defined(USER_GCODE_5)
-        MENU_ITEM(function, USER_DESC_5, lcd_user_gcode_5);
-      #endif
+	  
+	  //CHANGED: Custom menus
+	  
+	  MENU_ITEM(gcode, "Preheat for PLA", "M140 S" PSTR(PREHEAT_1_TEMP_BED) "\nM104 S" PSTR(PREHEAT_1_TEMP_HOTEND));
+	  MENU_ITEM(gcode, "Prepare restart print PLA", "M140 S" PSTR(PREHEAT_1_TEMP_BED) "\nM104 S" PSTR(PREHEAT_1_TEMP_HOTEND) "\nG0 Z+40 Y200");
+	  MENU_ITEM(gcode, "Home and center", "G28\nG0 X100 Y100 Z100");
+	  MENU_ITEM(gcode, "Center", "G0 X100 Y100 Z100");
+	  #ifdef LIN_ADVANCE_K
+	  MENU_ITEM(gcode, "Enable Linear Advance", "M900 K" PSTR(LIN_ADVANCE_K));
+	  MENU_ITEM(gcode, "Disable Linear Advance", "M900 K0.0");
+	  #endif
+	  
+    //   #if defined(USER_DESC_1) && defined(USER_GCODE_1)
+    //     MENU_ITEM(function, USER_DESC_1, lcd_user_gcode_1);
+    //   #endif
+    //   #if defined(USER_DESC_2) && defined(USER_GCODE_2)
+    //     MENU_ITEM(function, USER_DESC_2, lcd_user_gcode_2);
+    //   #endif
+    //   #if defined(USER_DESC_3) && defined(USER_GCODE_3)
+    //     MENU_ITEM(function, USER_DESC_3, lcd_user_gcode_3);
+    //   #endif
+    //   #if defined(USER_DESC_4) && defined(USER_GCODE_4)
+    //     MENU_ITEM(function, USER_DESC_4, lcd_user_gcode_4);
+    //   #endif
+    //   #if defined(USER_DESC_5) && defined(USER_GCODE_5)
+    //     MENU_ITEM(function, USER_DESC_5, lcd_user_gcode_5);
+    //   #endif
+	  
       END_MENU();
     }
 
